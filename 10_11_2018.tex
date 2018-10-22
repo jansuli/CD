@@ -1,0 +1,127 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\setcounter{chapter}{1}
+\setcounter{section}{1}
+\section{Pendelbewegung, Lotka-Voltera-Modell, Lorenz-System}
+Das mathematische \bemph{Pendel} wird modelliert durch die Gleichung
+\begin{equation}
+    \label{eqn:pendel}
+    \ddot φ = -\sin φ, \tag{Pendel}
+\end{equation}
+wobei $φ$ der Winkel der Auslenkung ist, und $\dot φ$ die Ableitung nach der Zeit.
+Mit $ψ = \dot φ$ erhält man daraus ein System erster Ordnung:
+\setcounter{equation}{1}
+\begin{equation}
+    \label{eqn:1.2}
+    \begin{aligned}
+    \dot φ &= ψ\\
+    \dot ψ &= - \sin φ
+    \end{aligned}
+\end{equation}
+
+\chapter{Grundlagen}\label{chapter:2}
+\section{Flüsse, Fixpunkte, Stabilität}\label{section:2.1}
+Batrachte autonome System von gewöhnlichen Differentialgleichungen erster Ordnung, d.h.
+\begin{equation}
+    \label{eqn:2.1}
+    \dot x = f(x),
+\end{equation}
+wobei $f\colon D \to ℝ^n, \; D\subset ℝ^n$ und $x=x(t) \in ℝ^n$. Ist $f$ glatt genug (d.h. Lipschitz-stetig auf $D$), so existiert der \bemph{Fluss} $φ^t\colon D\to ℝ^n$, wobei $φ^t$ für alle $x\in D$ und $t\in [a,b]\subset ℝ$ definiert ist. Es gilt für den Fluss
+$$\dt φ^t(x) = f\left( φ^t (x) \right), \quad φ^0(x) = x.$$
+In der klassischen Sprechweise ist somit $x(t;x_0)= φ^t(x_0)$ die Lösung von \eqref{eqn:2.1} zum Anfangswert $x_0$. Beachte, dass $x_0=x(0)$ aufgrund der Autonomie von \eqref{eqn:2.1} gewählt werden kann. Tatsächlich gilt hiermit
+$$φ^0 = \id|_D, \quad φ^{t+s} = φ^t \circ φ^s\qquad\text{(vgl. (1.1))}$$
+
+\begin{mydef}\label{2.1}
+$φ^•(x_0) = x(•;x_0)$ heißt \bemph{Trajektorie}, \bemph{Orbit} oder \bemph{Lösungskurve} des Systems \eqref{eqn:2.1} durch den Punkt $x_0$.
+\end{mydef}
+Nun zu besonders ausgezeichneten Lösungen:
+\begin{mydef}\label{2.2}
+$\overline x\in D$ heißt \bemph{statische Lösung}, \bemph{stationäre Lösung}, \bemph{Fixpunkt} oder z.B. \bemph{Gleichgewichtspunkt} von \eqref{eqn:2.1}, falls
+$$f(\overline x) = 0.$$
+\end{mydef}
+\begin{itemize}
+    \item Man spricht von „stationärer Lösung“ oder „Gleichgewichtspunkt“, da 
+    $$x(t;\overline{x}) = φ^t(\overline{x}) = \overline{x}$$ 
+    eine zeitunabhängige Lösung von \eqref{eqn:2.1} ist.
+    \item Der Begriff „Fixpunkt“ ist motiviert durch $φ^t(\overline{x}) = \overline x$ für alle $t$.
+\end{itemize}
+\begin{bsp}\label{2.3}$ $\\[-1em]
+\begin{enumerate}[label=(\alph*)]
+    \item \label{2.3.a} Die Gleichung \eqref{eqn:1.2} besitzt die die stationären Lösung
+    $$(\overline{φ_1}, \overline{ψ_1}) = (0,0), \quad (\overline{φ_2}, \overline{ψ_2}) = (π, 0).$$
+    \item \label{2.3.b} Für das Lorenz-System gibt es drei stationäre Lösungen:
+    \begin{align*}
+        (\ov x_0, \ov y_0, \ov z_0) &= (0,0,0)\\
+        (\ov x_{1,2}, \ov x_{1,2} \ov z_{1,2}) &= (\pm \sqrt{β(ρ-1)},\pm \sqrt{β(ρ-1)},ρ-1)
+    \end{align*}
+\end{enumerate}
+\end{bsp}
+\begin{mydef}\label{2.4} Ein Fixpunkt $\ov x$ heißt \bemph{stabil} (oder Lyapinov-stabil), falls zu jeder Umgebung $U$ von $\ov x$ eine (in der Regel kleinere) Umgebung $V$ von $\ov x$ existiert, so dass $φ^t(x)\in U$ für alle $x\in V$ und $t\ge 0$.\\
+Falls \emph{zusätzlich} $φ^t(x) \to \ov x$ für $t\to \infty$, so heißt $\ov x$ \bemph{asymptotisch stabil}.
+\end{mydef}
+Man beachte, dass dieses Stabilitätskonzept von lokaler Natur ist.
+\begin{bsp}\label{2.5}
+Die Pendelgleichung \eqref{eqn:1.2} heat für kleine Auslenkungen die Lösungen
+\begin{align*}
+    \dot x &= y\\
+    \dot y &= -x.
+\end{align*}
+Die allgemeinen Lösung haben die Form 
+$$
+\begin{pmatrix}
+x(t)\\y(t)
+\end{pmatrix}
+= A\begin{pmatrix}
+\sin(t+ϑ)\\ \cos(t+ϑ)
+\end{pmatrix}.$$
+Für die einfache Lösung ergeben sich konzentrische Trajektorien. Man beobachtet, dass $(\ov x, \ov y) = (0,0)$ stabil, aber nicht asymptotisch stabil ist.
+% skizze
+\end{bsp}
+
+\section{Lineare System - eine Erinnerung}\label{section:2.2}
+Betrachte das lineare autonome System
+\begin{equation}
+    \label{eqn:2.2}\dot x = Ax, \quad x\in ℝ^n, \; A\in ℝ^{n\times n}.
+\end{equation}
+\begin{enumerate}[label=(\roman*)]
+    \item Lösungen existieren für alle $t\ge 0$ (globale Existenz).
+    \item Die Lösung $x(t)$ zum Anfangswert $x(0) = x_0$ hat die Form
+    $$φ^t(x_0) = e^{tA} x_0,$$
+    wobei für $B\in ℝ^{n\times n}$ gilt
+    $$e^B = I + B + \frac{1}{2!} B^2 + \frac{1}{3!}B^3 + …$$
+    Der Fluss ist also $φ^t = e^{tA}$.
+    \item Die allgemeine Lösung von \eqref{eqn:2.2} ist
+    $$x(t) = \sum_{j=0}^n c_j x^j(t), \quad c_j\in ℝ,$$
+    wobei $x^j(t), \ j=1,…, n,$ linear unabhängige Lösungen sind. Falls $A$ diagonalisierbar ist, so existieren $n$ linear unabhängige Eigenvektoren $v^j,\ j=1,…,n,$ mit Eigenwerten $λ_j$ und es ist $x^j(t) = e^{λ_jt} v^j$. (Wähle Real- und Imaginärteile im Falle $λ_j\in ℂ\setminus ℝ$.)
+\end{enumerate}
+Mit $X(t) = \begin{bmatrix} x^1(t) & … & x^n(t)\end{bmatrix} \in ℝ^{n\times n}$ gilt also 
+$$e^{tA} = X(t) X(0)^{-1},$$
+denn wir haben mit $C\in ℝ^{n\times n}$
+$$e^{tA} = X(t) C \Rightarrow C = X(0)^{-1}.$$
+Betrachte zur Verdeutlichung sukzessive 
+$$e^{tA} e_j = X(t) c^j$$
+für den $j$-ten Einheitsvektor und $j=1,…,n$ und schreibe die Koeffizienten in $C$.
+Für detailliertere Ausführungen vergleiche \citet{shupSmale}.
+
+\section{Invariante Unterräume}\label{section:2.3}
+Der Fluss $e^{tA}\colon ℝ^n \to ℝ^n$ beschreibt alle Lösungen von \eqref{eqn:2.2}. Es folgt eine Klassifikation der Lösungen im Hinblick auf ihr qualifikatives Verhalten. Für
+\begin{satz}\label{2.6}
+Jeder Eigenraum von $A$ ist invariant unter dem Fluss $φ^t = e^{tA}$.
+\end{satz}
+
+\begin{proof}
+Sei $v$ ein Eigenvektor von $A$ zum Eigenwert $λ$. Dann ist 
+$$x(t) = e^{tA} v = e^{λt} v$$
+Lösung von \eqref{eqn:2.2} zum Anfangswert $x(0) = v$. Ist $v$ nicht reell, so ist $\langle \Re{v}, \Im{v} \rangle$ invariant.
+\end{proof}
+
+\begin{bem}\label{2.7}
+Satz \ref{2.6} gilt auch für verallgemeinerte Eigenräume.
+\end{bem}
+\begin{proof}
+Wegen $A^p e^{tA} = e^{tA} A^p$ gilt
+$$(A-λI)^p v = 0\Rightarrow (A-λI)^p e^{tA} = 0.$$
+\end{proof}
+
+\end{document}

@@ -1,0 +1,302 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\setcounter{chapter}{2}
+\setcounter{section}{3}
+
+\setcounter{satz}{7}
+\begin{mydef}\label{2.8}
+Es sind 
+\begin{align*}
+    E^s &= \lin{ v^1, …, v^{n_s}} & \text{der \bemph{stabile Unterraum}},\\
+    E^u &= \lin{ u^1, …, u^{n_u}} &\text{der \bemph{instabile Unterraum}},\\
+    E^c &= \lin{w^1, …, w^{n_c}} &\text{der \bemph{Zentrumsunterraum}},
+\end{align*}
+wobei 
+$$
+\left\{ \begin{matrix}
+v^1, …, v^{n_s}\\
+u^1, …, u^{n_u}\\
+w^1, …, w^{n_c}\end{matrix}\right\}
+$$
+die (verallgemeinerten) Eigenvektoren zu Eigenwerten mit
+$$
+\left\{ \begin{matrix}
+\text{negativen Realteil}\\
+\text{positivem Realtei}\\
+\text{Realteil 0}
+\end{matrix}\right\}
+$$
+sind.
+\end{mydef}
+\begin{bem}\label{2.9}
+Es gilt
+\begin{enumerate}[label=(\alph*)]
+    \item $$n_s + n_u + n_c = n.$$
+    \item \begin{itemize}
+        \item Lösungen in $E^s$ fallen exponentiell für $t\to + \infty$.
+        \item Lösungen in $E^u$ fallen exponentiell für $t\to - \infty$.
+        \item Lösungen in $E^c$ zeigen kein exponentielles Verhalten.
+    \end{itemize}
+    \item Der Fluss $e^{tA}$ heißt \bemph{hyperbolisch}, falls $n_c = 0$. Falls zudem $\left\{ \begin{matrix} n_u = 0\\ n_s = 0\end{matrix}\right\}$, so heißt $e^{tA}$ eine $\left\{ \begin{matrix} \text{{Kontraktion}}\\\text{{Expansion}} \end{matrix}\right\}$.
+    
+    \begin{figure}[h!]
+        \centering
+        \input{imgs/2_9_phasenorbit.tex}
+        \caption{Skizze eines Phasenorbits}
+    \end{figure}
+    
+\end{enumerate}
+\end{bem}
+\begin{bsp}\label{2.10}$ $\\[-1em]
+\begin{enumerate}
+    \item Es sei $A = \begin{pmatrix} 0 & 1 \\ 0&-4 \end{pmatrix}$ mit Eigenwerten $0$ und $-4$ und zugehörigen Eigenvektoren $\begin{pmatrix}1\\0\end{pmatrix}, \begin{pmatrix}1\\-4\end{pmatrix}$. Es ist $n^u = 0, n^c = 1 , n^s = 1$. Die allgemeine Lösung ist
+    $$x(t) = c_1 \begin{pmatrix}1\\0\end{pmatrix} + c_2 e^{-4t} \begin{pmatrix}1\\-4\end{pmatrix}.$$
+    \item Es sei
+    $$A = \begin{pmatrix}
+    -1 & -1 & 0\\
+    1 & - 1 & 0\\
+    0 & 0 & 2\end{pmatrix}$$
+    mit Eigenwerten $2, -1+i, -1 -i$. Dann ist $n^u = 1 n^s = 2, n^c = 0$ und $e^{tA}$ ist hyperbolisch.
+    Die Eigenvektoren sind
+    $$\begin{pmatrix} 0\\ 0\\ 1\end{pmatrix}, \begin{pmatrix} 1 \\ \pm i \\ 0\end{pmatrix}.$$
+    %skizze spirale ins zentrum in xy
+\end{enumerate}
+\end{bsp}
+\begin{satz}\label{2.11}
+Der Fluss $e^{tA}$ sei hyperbolisch. Dann exisiert eine Zerlegung 
+$$ℝ^n = E^s \oplus E^u$$
+in invariante Unterräume, so dass der induzierte Fluss auf $E^s$ eine Kontraktion auf auf $E^u$ ein Expansion ist.
+\end{satz}
+
+\section{Die Poincaré-Abbildung}
+Es sei $\ov x(t)$ eine periodische Lösung der Periode $T$ zu dem System von Differentialgleichungen erster Ordnung
+$$\dot x = f(x), \quad f\colon ℝ^n \to ℝ^n.$$
+Es gilt also
+$$\ov x(t+T) = \ov x(t) \qquad ∀t\in ℝ.$$
+Dann ist die Kurve
+$$γ= \{ x(t) : t \in ℝ \}$$
+der zugehörige periodische Orbit.
+
+Wir betrachten einen lokalen transversalen Schnitt $Σ \in ℝ^n $ zu $γ$ mit $\dim Σ = n-1$. $Σ$ sei also derart gewählt, dass der Fluss $φ^t$ transversal dazu ist, d.h. für einen Normalenvektor $n(x)$ zu $x\in Σ$ gilt
+\begin{equation}
+    \label{eqn:2.3}
+    \scal{f(x), n(x) } \ne 0 \qquad ∀x\in Σ.
+\end{equation}
+
+\begin{center}
+    \begin{tikzpicture}[
+     tangent/.style={
+        decoration={
+            markings,% switch on markings
+            mark=
+                at position #1
+                with
+                {
+                    \coordinate (tangent point-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (0pt,0pt);
+                    \coordinate (tangent unit vector-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (1,0pt);
+                    \coordinate (tangent orthogonal unit vector-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (0pt,1);
+                }
+        },
+        postaction=decorate
+    },
+    use tangent/.style={
+        shift=(tangent point-#1),
+        x=(tangent unit vector-#1),
+        y=(tangent orthogonal unit vector-#1)
+    },
+    use tangent/.default=1
+]
+\draw[rotate=20, name path = orbit, tangent = .75] (0,0) ellipse [x radius = 4cm, y radius = 3cm];
+\draw[->, thick, use tangent, name path = tangent] (0,0) -- (2,0) node[right] (b) {$f(p)$};
+\fill [name intersections = {of=orbit and tangent, by = p}] (p) circle [radius = 0.075cm];
+
+\draw (p) node[below = 0.5cm, left= 0.3cm] {$p$};
+\draw[thick] ($(p)!1cm!90:(b)$) -- ($(p)!1cm!-90:(b)$);
+\end{tikzpicture}
+\end{center}
+
+Es bezeichne 
+$$p=Σ \cap γ$$
+den einzigen Schnittpunkt von $Σ$ und $γ$.
+
+\begin{satz}
+\label{2.12}Es gibt eine Umgebung $U$ von $p$ in $Σ$ und eine Funktion
+$τ\colon U \to ℝ$ mit den Eigenschaften
+\begin{enumerate}[label= (\roman*)]
+    \item $$τ(p) = T$$ 
+    \item Für alle $x \in U$ gilt $φ^{τ(x)} (x) \in Σ$ und \bemph{Rückkehrzeit} von $τ(x)$ ist eindeutig bestimmt.
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+Stelle $Σ$ dar als $Σ = \{ x: h(x) = 0\}$ (z.B. $h(x) = u^T x - u^T p$, wobei $Σ = p + \lin{ a_1, …, a_{n-1} }$ mit $u^T a_j = 0, j=1, …, n-1$) und verwende den Satz über implizite Funktionen. 
+Definiere die Treff-Funktion $g(x,t) = h\left( φ^t(x) \right)$. Dann gilt
+$$g(p,T) = h\left( φ^t(p) \right) = h(p) = 0.$$
+Weiter gilt 
+\begin{align*}
+    \pd{t} g(x,t) &= \nabla h\left( φ^t(x) \right) \dt φ^t (x)\\
+    &= \nabla h\left( φ^t (x) \right) f\left( φ^t (x) \right)\\
+\end{align*}
+und wegen \eqref{eqn:2.3} folgt
+$$\pd{t} g(p,T) = \nabla h(p) f(p) \ne 0.$$
+Beachte hierbei, dass für jede Kurve $γ(t) \in Σ$ mit $γ(0) = p$ gilt
+$$h(γ(t)) = 0\Rightarrow \nabla h(p) \dot γ(p) = 0.$$
+Also ist $\nabla h(p)$ normal zu $T_p Σ$.
+\end{proof}
+\begin{mydef}\label{2.13}
+Die \bemph{Poincaré-Abbildung} $P\colon U \to Σ$ ist definiert durch
+$$P(x) = φ^{τ(x)}$$
+mit der Rückkehrzeit $τ(x)$.
+% skizze
+\end{mydef}
+
+Beachte: Offenbar gilt
+$$P(p) = φ^{τ(p)} (p) = φ^T(p) = p.$$
+Also ist $p$ ein Fixpunkt der Poincaré-Abbildung.
+
+\begin{bsp}\label{2.14}
+Betrachte
+\begin{align*}
+    \dot x &= x-y-x(x^2 + y^2)\\
+    \dot y &= x + y - y (x^2 + y^2).
+\end{align*}
+In Polarkoordinaten $(r,θ)$ (also $x = r\cos θ, y = r \sin θ$) folgt
+\begin{align}
+\dot r \cos Θ - r \dot θ \sin θ &= r\cos θ - r \sin θ - r^3 \cos θ \tag{I}\\
+\dot r \sin θ + r \dot θ \cos θ &= r\cos θ + r\sin θ - r^3 \sin θ \tag{{II}}
+\end{align}
+$\cos θ \cdot \text{(I)} + \sin θ \cdot \text{(II)}$ sowie $\cos θ \cdot \text{(II)} - \sin θ \cdot \text{(I)}$ liefert
+\begin{equation}\label{eqn:2.4}
+    \begin{aligned}
+    \dot r &= r-r^3\\
+    \dot θ &= 1
+    \end{aligned}
+\end{equation}
+
+% 18_10_2018
+Der Zustandsraum von diesem System ist $ℝ_+\times S^1$ und der Orbit ist
+$$γ= \{ (1,t) \in ℝ_+ \times S^1: t\ge 0 \}.$$
+(einem periodischen Orbit des Ausgangssystems.)
+
+\begin{center}
+    \begin{tikzpicture}
+    
+    % ------- draw cylinder
+    \draw (0,0) ellipse[x radius = 2cm, y radius = 0.75cm]  +(0,4) ellipse[x radius = 2cm, y radius = 0.75cm]; % top and bottom
+    \draw (-2, 0) -- ++(0,4) ++(4,0) -- +(0,-4) ; % sides
+    
+    \draw[red] (-2, 2) arc [start angle = 180, end angle = 360, x radius = 2cm, y radius = 0.75cm] +(0.5, 0) node {$γ$};
+    \draw[red, dashed] (-2,2) arc [ start angle = 180, end angle = 0, x radius = 2cm, y radius = 0.75cm]; % orbit of γ
+    
+    \draw[blue] (0,-0.75) -- +(0,4) +(0.2,4.2) node {$Σ$}; % transversal cut
+    
+    % ------ draw scale to the left
+    \draw[->] (-2.5,0) -- +(0,4.3);
+    \draw (-2.4,0) -- +(-0.2, 0) node[left] {$0$} ++(0,2) -- + (-0.2, 0) node[left] {$1$};
+    
+    % ------ middlearrow
+    \draw[<->, very thick] (3, 2) -- +(0.4, 0);
+    
+    % ------ Coordinate system and orbit
+    \coordinate (c) at (6, 2);
+    \draw (c) node[below right] {$0$};
+    \draw (c) ++(2, 0.1) -- +(0, -0.2) node[below right] {$1$}; 
+    \draw[->] (c) ++ (-2.25, 0) -- +(4.5, 0) node[right] {$x$};
+    \draw[->] (c) ++(0, -2.25) -- + (0, 4.5) node[above] {$y$};
+    
+    \draw[->,thick] (c) +(2,0) arc [start angle = 0, end angle = -45, radius = 2cm];
+    \draw[->, thick] (c) +(-45:2) arc [ start angle = -45, end angle = -225, radius = 2cm];
+    \draw[thick] (c) + (-225:2) arc [start angle = -225, end angle = -360, radius = 2cm];
+    
+    % ---------- Explanation
+    \draw (c) + (4.5,2.5) node[fill=yellow!20, text width = 4cm] {Positive Umlaufrichtung, da\newline $\begin{pmatrix}\dot x \\ \dot y \end{pmatrix} = \begin{pmatrix} 0\\ 1 \end{pmatrix} \text{ in }\begin{pmatrix} 1\\0 \end{pmatrix}.$};
+    \end{tikzpicture}
+\end{center}
+
+Wir können den transversalen Schnitt
+$$Σ = \{ (r,θ) \in ℝ_+ \times S^1: r>0, Θ \equiv 0 \}$$
+wählen. 
+Der Fluss von \eqref{eqn:2.4} kann leicht berechnet werden, und es ergibt sich
+$$φ^t ( r_0, θ_0) = \left( \left( 1 + \left( \frac{1}{r_0^2} - 1 \right) e^{-2t} \right)^{-\frac{1}{2}} , t+ θ_0 \right).$$
+Wegen $T = 2π$, und da die Rückkehrzeit $τ(x)$ (vgl. Satz \ref{2.10}) konstant ist, ist die Poincaré-Abbildung gegeben durch
+$$P(r_0, θ) = φ^{2π} (r_0, 0) = \left( \left( 1 +  \left( \frac{1}{r_0^2} - 1 \right) e^{-4π} \right)^{\frac{-1}{2}},0\right).$$
+Einfacher: 
+$$P(r)= \left( 1 + \left( \frac{1}{r^2} - 1 \right) e^{-4π} \right) ^{\frac{-1}{2}}.$$
+$P$ besitzt (wie erwartet) den Fixpunkt $r=1$.
+\end{bsp}
+
+\begin{bem*}
+Es sei $F\in C^1(ℝ^n)$ und es gelte $F(x^*) = x^*$ für $x^* \in ℝ^n$, d.h $x^*$ ist ein Fixpunkt von $F$. Weiter sei $ρ(DF(x^*))<1$, wobei $ρ$ den Spektralradius bezeichne,
+d.h. $ρ(DF(x^*)) = \max_{λ\text{ EW von $DF(x^*)$}} |λ|$.
+
+Dann existiert eine Umgebung $D$ von $x^*$, so dass die Folge $\{x_k\}$ der Fixpunktiteration $x_{k+1} = F(x_k), k=0,1,…,$ für jedes $x_0\in D$ gegen $x^*$ konvergiert.
+\end{bem*}
+
+\begin{proof}
+Zunächst drei Beobachtungen:
+\begin{enumerate}[label = (\alph*)]
+    \item Wähle ein $ε>0$ so klein, dass 
+    $$L = ρ(DF(x^*)) + 2ε < 1.$$
+    \item Es gibt eine Norm $\| • \|$ auf dem $ℝ^n$, so dass für die zugehörige Matrixnorm gilt
+    $$\| DF(x^*) \| \le ρ(DF(x^*)) + ε.$$
+    \item Es existiert ein $δ>0$, so dass
+    $$\|DF(y) - DF(x^*) \| \le ε \qquad ∀ y\in D = \{ x\in ℝ^n : \| x-x^* \| \le δ \}.$$
+\end{enumerate}
+Es folgt für alle $x\in D$:
+\begin{align*}\| F(x) - F(x^*) - DF(x^*)(- x^*) \| &=
+\left \| \int_0^1 \left( DF(x^* + t(x-x^*)) - DF(x^*) \right) (x - x^*) ~dt \right \| \\
+&\le \int_0^1 \left\| DF \underbrace{(x^* + t(x-x^*))}_{\in D} -DF(x^*) \right\|~dt \cdot \| x-x^* \|\\
+&\stackrel{(c)}\le ε \| x-x^* \|
+\end{align*}
+Damit erhalten wir
+\begin{align*}
+    \| F(x) -x^* \| &= \| F(x) - F(x^*) \|\\
+    &\le \| F(x) - F(x^*) - DF(x^*) (x-x^*) \| + \| DF(x^*)(x-x^*) \|\\
+    &\le ε \| x- x^* \| + \left( ρ( DF(x^*)) + ε \right) \| x- x^*\| &\text{nach (b)}\\
+    &\stackrel{(a)}= L \| x-x^* \|.
+\end{align*}
+Also ist $\{x_n\}\subset D$, falls $x_0\in D$, und wir haben $x_k \to x^*$ für $k\to \infty$.
+\end{proof}
+Wir berechnen jetzt
+$$DP(1 ) = \left.\darg{r} P\right|_{r=1} = \left. \frac{1}{2} \left( 1 + \left( \frac{1}{r^2} - 1 \right) e^{-4π} \right)^{\frac{-3}{2}} \left( e^{-4π} \left( -2 \frac{1}{r^3} \right)\right)\right|_{r=1} = e^{-4π} < 1.$$
+Also ist $r^*=1$ ein stabiler Fixpunkt von $P$, d.h. die Fixpunktiteration $r_{k+1} = P(r_k), k=0,1,…,$ konvergiert gegen $r^*=1$. Ist dann auch der periodische Orbit $γ$ stabil?
+
+\begin{mydef}\label{2.15}
+Es sei $\ov x(t)$ eine periodische Lösung und $γ$ der zugehörige periodische Orbit. Dann heißt $γ$ \bemph{stabil}, falls es zu jeder Umgebung $U$ von $γ$ eine Umgebung $V$ gibt, so dass für alle $x\in V$ gilt:
+$$φ^t(x) \in U \qquad ∀t\ge 0.$$
+$γ$ heißt \bemph{asymptotisch stabil}, falls zusätzlich $φ^t(x) \to γ$ für $t\to \infty$ für alle $x\in V$
+\end{mydef}
+Damit gilt tatsächlich:
+\begin{satz}\label{2.16}
+Ein periodischer Orbit $γ$ einer autonomen gewöhnlichen Differentialgleichung ist genau dann stabil (bzw. asymptotisch stabil oder instabil), wenn irgendeine eine Poincaré-Abbildung eines transversalen Schnitts in $p\in γ$ den Punkt $p$ als stabillen (bzw. asymptotisch stabilen oder instabilen) Fixpunkt besitzt.
+\end{satz}
+
+\begin{bem}[Floquet-Multiplikatoren]\label{2.17}
+Es sei $\ov x(t) = \ov x (t + T)$ wieder eine periodische Lösung. Zur Stabilitätsanalyse können wir die zeitliche Entwicklung einer „kleinen“ Störung $y(t) = \ov x(t) + ξ(t)$ betrachten. Für diese Störung gilt
+\begin{align*}
+    \dot {\ov x}(t) + \dot ξ(t) &= \dot y(t) = f\left( y(t)\right)\\
+    &= f(\ov x(t) + ξ(t) )\\
+    &\stackrel{\text{$ξ$  klein}}\approx f(\ov x(t)) + Df(\ov x(t)) ξ(t)
+\end{align*}
+Also betrachten wir die Variationsgleichung
+\begin{equation}
+    \label{eqn:2.5}
+    \dot ξ(t) = Df(\ov x(t)) ξ(t)
+\end{equation}\footnote{Das ist wegen der Periodizität der Lösung eine Differentialgleichung der Form
+    $\dot x = A(t) x$ mit $A(t)$ periodisch in $t$.}
+\end{bem}
+
+\begin{satz}[Floquet-Theorie, vgl. \cite{knoblochKappel}]\label{2.18}
+Jede Fundamentallösung $X(T)$ von \eqref{eqn:2.5} hat die Gestalt:
+$$X(t) = Z(t) e^{tR}, \quad Z(t) = Z(t+T),\quad X,Z \in ℝ^{n\times n}.$$
+Die Störung $ξ(t)$ gehen somit gegen 0, falls 
+$$e^{tR} v \to 0, t\to \infty, \quad ∀v\in ℝ^n.$$
+Die Eigenwerte von $e^{TR}$ sind die Floquet Multiplikatoren.
+\end{satz}
+\begin{bem*}
+Beachte, dass für die Lösung $X(t)$ mit $X(0) = Z(0) = I$ folgt:
+$$X(t) = Z(T)e^{TR} = e^{TR}.$$
+\end{bem*}
+
+\end{document}

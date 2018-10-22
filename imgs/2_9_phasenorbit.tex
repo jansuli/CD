@@ -1,0 +1,24 @@
+
+\begin{tikzpicture}
+\tikzset{->-/.style={decoration={
+  markings,
+  mark=at position .5 with {\arrow{>}}},postaction={decorate}}}
+
+\tikzset{->->-/.style={decoration={
+  markings,
+  mark=at position .25 with {\arrow{>}},
+  mark=at position .75 with {\arrow{>}}},
+  postaction={decorate}}}
+
+\node (Eu) at (5, -1.5) {$E^u$};
+\node (Es) at (5, 2) {$E^s$}; 
+\draw [name path= Eupath] (0,0) -- (Eu);
+\draw [name path= Espath]  (0,-2) -- (Es);
+\path [name intersections={of=Eupath and Espath,by=C}];
+\draw [->-] (C) -- (0,0);
+\draw [->-] (C) -- (Eu);
+\draw [->-] (0,-2) -- (C);
+\draw [->-] (Es) -- (C);
+
+\draw[->->-] (4.3, 1.7) .. controls (C) .. (0,0.2);
+\end{tikzpicture}
