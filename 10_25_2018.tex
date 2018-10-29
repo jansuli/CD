@@ -1,0 +1,302 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+
+\setcounter{chapter}{2}
+\setcounter{satz}{21}
+
+\begin{enumerate}[label=(\alph*)]
+\setcounter{enumi}{2}
+\item Es sei 
+$$A = λ \begin{pmatrix}
+\cos θ & - \sin θ \\ \sin θ & \cos θ
+\end{pmatrix}, \quad λ \in (0,1), θ\in [0,2π).$$
+Dann ist $A$ die Hintereinanderausführung einer Rotation um den Winkel $θ$ und einer Rotation um den Faktor $λ$.
+Wir erhalten einen \bemph{Fokus}:
+\begin{center}
+\input{imgs/2_21_c.tex}
+\end{center}
+\end{enumerate}
+
+\begin{mydef}\label{2.22}
+Eine lineare Abbildung ist \bemph{hyperbolisch}, falls es keinen Eigenwert mit Betrag 1 gibt. 
+\end{mydef}
+Zu einem reellen Eigenwert $λ$ von $A$ bezeichne $E_λ$ den zugehörigen (verallgemeinerten) Eigenraum.\\
+Zu einem konjugiert komplexen Eigenwertpaar $λ,\ov λ$ bezeichne $E_{λ,\ov λ}$ den Real- und Imaginärteil von Eigenvektoren aufgespannten Unterraum. Wir setzen damit
+\begin{align*}
+E^{-} &= E^{-} (A) = \bigoplus_{|λ|<1} E_λ \oplus \bigoplus_{|λ|<1} E_{λ,\ov λ},\\
+E^{+} &= E^{+} (A) = \bigoplus_{|λ|>1} E_λ \oplus \bigoplus_{|λ|>1} E_{λ,\ov λ},\\
+E^0 &= E^0(A) = \bigoplus_{|λ|=1} E_λ \oplus \bigoplus_{|λ|=1} E_{λ,\ov λ}.\\
+\end{align*}
+
+\begin{bem*}$ $\\[-1em]
+\begin{enumerate}
+[label=(\alph*)]
+% a fehlt
+\item Falls $A$ invertierbar ist, so ist $E^+(A) = E^-(A^{-1})$.
+\item Die Räume $E^-, E^+, E^0$ sind invariant unter $A$ und es gilt 
+$$ℝ^n = E^- \oplus E^+ \oplus E^0.$$
+\item $A$ ist \emph{hyperbolisch} genau dann, wenn $E^0 = \{ 0\}$. Das gilt genau dann, wenn $ℝ^n = E^- \oplus E^+.$
+\end{enumerate}
+\end{bem*}
+
+Mit Satz \ref{2.18} folgt
+\begin{korollar}\label{2.23}
+Es existiert eine Norm, so dass die Restriktion von $A$ auf $E^-(A)$ eine kontrahierende Abbildung ist.\\
+Ist $A$ invertierbar, so ist die Restriktion von $A^{-1}$ auf $E^+(A)$ kontrahierend.
+\end{korollar}
+
+\begin{mydef}\label{2.24}
+$E^-(A)$ ist der \bemph{stabile Unterraum}, $E^+(A)$ ist der \bemph{instabile Unterraum}.
+\end{mydef}
+
+\begin{satz}\label{2.25}
+$A$ sei hyperbolisch. Dann gilt:
+\begin{enumerate}
+[label=(\alph*)]
+\item \label{2.25.1} Für jedes $v \in E^-$ konvergiert $A^n v$ exponentiell gegen den Ursprung für $n\to ∞$. Ist $A$ invertierbar, so geht $A^n v$ exponentiell gegen $∞$ für $n\to -∞$ und $v\ne 0$.
+\item \label{2.25.2} Für jedes $v\in E^+$ konvergiert $A^n v$ exponentiell gegen Unendlich ($v\ne 0$) für $n\to ∞$. Ist $A$ invertierbar, dann konvergiert $A^n v$ exponentiell gegen den Ursprung für $n\to -∞$.
+\item \label{2.25.3} Für jedes $v\in ℝ^n\setminus ( E^+ \cup E^-)$ konvergiert $A^n v$ exponentiell gegen Unendlich für $n\to ∞$ und auch $n\to -∞$, falls $A$ invertierbar ist.
+\end{enumerate}
+\end{satz}
+
+\begin{proof}
+(a) und (b) sind beide klar.\\
+Sei also $v\in ℝ^n \setminus (E^- \cup E^+)$. Da $A$ hyperbolisch ist, gilt
+$$v = v^- + v^+ \text{ mit } \ov v \in E^-, v^+ \in E^+, v^-, v^+ \ne 0.$$
+Wir erhalten für große $n$:
+\begin{align}
+\| A^n v \| &= \| A^n ( v^- + v^+ ) \| \nonumber \\
+& \ge \| A^n v^+ \| - \|A^n v^- \|\nonumber \\
+& \ge λ^n c \| v^+ \| - \tilde{λ}^n c ' \| v^- \| \label{eqn:2.25.1} \tag{$\star$}\\
+& \ge λ^n c'',\nonumber
+\end{align}
+wobei $\tilde λ < 1 , λ > 1, c,c', c'' > 0$. 
+Für \eqref{eqn:2.25.1} benutze \ref{2.9}:
+$$\| A^n v^- \| \le c' \tilde λ^n \| v^- \|$$
+sowie
+$$\|A^{-n}v^+\| \le λ ν^n \| v^+ \|.$$
+Daraus folgt
+\begin{align*}
+\|v^+ \| &= \| A^{-n} A^n v^+ \| \le λν^n \| A v^+ \| \stackrel{ν<1}\Rightarrow \\
+\|A^n v^+ \| &\ge \frac{1}{ν^n} \frac{1}{λ} \| v^+ \| = : cλ^n \| v^+ \|.
+\end{align*}
+$c''$ kann man z.B. als 
+$$c'' = c\frac{ \| v^+  \|}{2}.$$
+\end{proof}
+
+\begin{bsp}
+\label{2.26}
+Es seien $0<μ<1<λ$ und $A = \begin{pmatrix}
+λ&0\\ 0& μ
+\end{pmatrix}$. Dann gilt $\dim E^- = \dim E^+ = 1$ und man erhält:\\
+Einen \bemph{Sattelpunkt}. Gilt speziell $λμ = 1$, so sind die invarianten Kurven die Hyperbeln $xy = \mathrm{const}$.
+Daher spricht man von „hyperbolisch“.
+\begin{center}
+\input{imgs/2_26.pgf}
+\end{center}
+\end{bsp}
+Wir diskutieren vollständig den eindimensionalen Fall:
+$$x_{k+1} = bx_k,\qquad k=0,1,2,…, \;b\in ℝ.$$
+Es gibt sieben Fälle:
+\begin{enumerate}
+[label=\arabic*)]
+\item $b < -1$ 
+und man hat eine orientierungsumkehrende Quelle.
+\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da7278447555193781] 
+\draw    (100,110) -- (502.79,110) ;
+
+
+%Straight Lines [id:da0364565703725821] 
+\draw    (299.79,100.57) -- (299.79,119.6) ;
+
+
+\draw   (264.11,102.68) -- (278.32,116.89)(278.32,102.68) -- (264.11,116.89) ;
+\draw   (374.11,102.68) -- (388.32,116.89)(388.32,102.68) -- (374.11,116.89) ;
+\draw   (117.11,102.89) -- (131.32,117.11)(131.32,102.89) -- (117.11,117.11) ;
+
+% Text Node
+\draw (301,89) node   {$0$};
+% Text Node
+\draw (270,130) node   {$x_{0}$};
+% Text Node
+\draw (380,130) node   {$x_{1}$};
+% Text Node
+\draw (130,130) node   {$x_{2}$};
+\end{tikzpicture}
+\end{center} 
+
+\item $b\in (-1, 0)$ liefert eine orientierungsumkehrende Senke.
+\begin{center}
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da7278447555193781] 
+\draw    (100,110) -- (502.79,110) ;
+
+
+%Straight Lines [id:da0364565703725821] 
+\draw    (299.79,100.57) -- (299.79,119.6) ;
+
+
+\draw   (264.11,102.68) -- (278.32,116.89)(278.32,102.68) -- (264.11,116.89) ;
+\draw   (374.11,102.68) -- (388.32,116.89)(388.32,102.68) -- (374.11,116.89) ;
+\draw   (117.11,102.89) -- (131.32,117.11)(131.32,102.89) -- (117.11,117.11) ;
+
+% Text Node
+\draw (301,89) node   {$0$};
+% Text Node
+\draw (270,130) node   {$x_{2}$};
+% Text Node
+\draw (380,130) node   {$x_{1}$};
+% Text Node
+\draw (130,130) node   {$x_{0}$};
+\end{tikzpicture}
+\end{center} 
+\item $b\in (0,1)$ liefert eine orientierungserhaltende Senke.
+\begin{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da7278447555193781] 
+\draw    (100,110) -- (502.79,110) ;
+
+
+%Straight Lines [id:da0364565703725821] 
+\draw    (299.79,100.57) -- (299.79,119.6) ;
+
+
+\draw   (457.11,102.89) -- (471.32,117.11)(471.32,102.89) -- (457.11,117.11) ;
+\draw   (367.11,102.89) -- (381.32,117.11)(381.32,102.89) -- (367.11,117.11) ;
+\draw   (327.11,102.89) -- (341.32,117.11)(341.32,102.89) -- (327.11,117.11) ;
+
+% Text Node
+\draw (301,89) node   {$0$};
+% Text Node
+\draw (470,130) node   {$x_{0}$};
+% Text Node
+\draw (380,130) node   {$x_{1}$};
+% Text Node
+\draw (330,130) node   {$x_{2}$};
+
+\end{tikzpicture}
+\end{center}
+\item $b>1$ liefert eine orientierungserhaltende Quelle.
+\begin{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da7278447555193781] 
+\draw    (100,110) -- (502.79,110) ;
+
+
+%Straight Lines [id:da0364565703725821] 
+\draw    (299.79,100.57) -- (299.79,119.6) ;
+
+
+\draw   (457.11,102.89) -- (471.32,117.11)(471.32,102.89) -- (457.11,117.11) ;
+\draw   (367.11,102.89) -- (381.32,117.11)(381.32,102.89) -- (367.11,117.11) ;
+\draw   (327.11,102.89) -- (341.32,117.11)(341.32,102.89) -- (327.11,117.11) ;
+
+% Text Node
+\draw (301,89) node   {$0$};
+% Text Node
+\draw (470,130) node   {$x_{2}$};
+% Text Node
+\draw (380,130) node   {$x_{1}$};
+% Text Node
+\draw (330,130) node   {$x_{0}$};
+
+\end{tikzpicture}
+\end{center}
+\item Für $b=-1$ ist die Abbildung orienterungsumkeherend und es gilt $f^2(x) = x$ für alle x.
+\begin{center}
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da7278447555193781] 
+\draw    (100,110) -- (502.79,110) ;
+
+
+%Straight Lines [id:da0364565703725821] 
+\draw    (299.79,100.57) -- (299.79,119.6) ;
+
+
+\draw   (378.68,102.89) -- (392.89,117.11)(392.89,102.89) -- (378.68,117.11) ;
+\draw   (208.68,102.89) -- (222.89,117.11)(222.89,102.89) -- (208.68,117.11) ;
+
+% Text Node
+\draw (301,89) node   {$0$};
+% Text Node
+\draw (380,130) node   {$x_{0}$};
+% Text Node
+\draw (220,130) node   {$x_{1}$};
+% Text Node
+\draw (400,150) node   {$x_{2} =x_{0}$};
+
+
+\end{tikzpicture}
+
+\end{center}
+\item Für $b=0$ ist $f(x) = 0$.
+\item Für $b=1$ ist $f(x) = x$.
+\end{enumerate}
+
+Um das Verhalten einer nicht-hyperbolischen Abbildung zu beschreiben, müssen wir verstehen, was dynamisch in $E^0$ passiert.\\
+$E^0$ zerfällt in 
+$$E_1, E_{-1} \text{ und } E_{λ,\ov λ}\text{ mit }|λ| = 1 \quad (λ \ne \pm 1)$$
+Falls die Eigenwerte einfach sind, so ergibt sich folgende Dynamik:
+\begin{itemize}
+\item $E_1$: alle $x\in E^1$ sind Fixpunkte.
+\item $E_{-1}$: alle $x\in E^{-1}$, $x\ne 0$, sind 2-periodisch.
+\item $E_{λ,\ov{λ}}$: ist $λ= e^{iφ}$, so operiert $A$ auf dem Raum $\lin{\Re v, \Im v}$ wie eine Rotation um den Winkel $φ$,
+denn sei $v = v_1 + i v_2$, dann gilt
+$$Av = e^{iφ} v = (\cos φ v_1 - \sin φ v_2 ) + i (\sin φ v_1 + \cos φ v_2).$$
+Also 
+$$ A \begin{pmatrix}
+v_1 \\ v_2 
+\end{pmatrix} = \begin{pmatrix}
+\cos φ  & - \sin φ \\ \sin φ & \cos φ
+\end{pmatrix}\begin{pmatrix}
+v_1 \\ v_2
+\end{pmatrix}.$$
+\end{itemize}
+
+\setcounter{section}{5}
+\section{Rotationen des Kreises}\label{section:2.6}
+in multiplikativer Schreibweise habe wir
+$$S^1 = \{ z\in ℂ: |z |=1\} = \{ e^{i2πφ} : φ\in ℝ \}$$
+und in additiver Schreibweise
+$$S^1 = ℝ/ℤ.$$
+Es bezeichne $ℝ_α$ die Rotation um den Winkel $2πα$. 
+In multiplikativer Schreibeweise drückt sich das aus durch:
+$$R_α z = z_0z, \quad z_0 = e^{i2πα}.$$
+In additiver Schreibweise durch
+$$R_α x = x+α \mod 1.$$
+Für die Iterierten gilt dann
+\setcounter{equation}{9}
+\begin{equation}
+\label{eqn:2.10}
+R^n_α z = R_{nα} z = z_0^n z \;\text{ bzw. }\; R_α^n x = x + nα\mod 1
+\end{equation}
+\end{document}

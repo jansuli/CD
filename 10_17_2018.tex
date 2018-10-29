@@ -146,7 +146,7 @@ Also ist $\nabla h(p)$ normal zu $T_p Σ$.
 \end{proof}
 \begin{mydef}\label{2.13}
 Die \bemph{Poincaré-Abbildung} $P\colon U \to Σ$ ist definiert durch
-$$P(x) = φ^{τ(x)}$$
+$$P(x) = φ^{τ(x)} (x)$$
 mit der Rückkehrzeit $τ(x)$.
 % skizze
 \end{mydef}
@@ -228,7 +228,8 @@ $P$ besitzt (wie erwartet) den Fixpunkt $r=1$.
 
 \begin{bem*}
 Es sei $F\in C^1(ℝ^n)$ und es gelte $F(x^*) = x^*$ für $x^* \in ℝ^n$, d.h $x^*$ ist ein Fixpunkt von $F$. Weiter sei $ρ(DF(x^*))<1$, wobei $ρ$ den Spektralradius bezeichne,
-d.h. $ρ(DF(x^*)) = \max_{λ\text{ EW von $DF(x^*)$}} |λ|$.
+d.h. 
+$$ρ(DF(x^*)) = \max_{λ\text{ EW von $DF(x^*)$}} |λ|.$$
 
 Dann existiert eine Umgebung $D$ von $x^*$, so dass die Folge $\{x_k\}$ der Fixpunktiteration $x_{k+1} = F(x_k), k=0,1,…,$ für jedes $x_0\in D$ gegen $x^*$ konvergiert.
 \end{bem*}
@@ -269,30 +270,30 @@ $γ$ heißt \bemph{asymptotisch stabil}, falls zusätzlich $φ^t(x) \to γ$ für
 \end{mydef}
 Damit gilt tatsächlich:
 \begin{satz}\label{2.16}
-Ein periodischer Orbit $γ$ einer autonomen gewöhnlichen Differentialgleichung ist genau dann stabil (bzw. asymptotisch stabil oder instabil), wenn irgendeine eine Poincaré-Abbildung eines transversalen Schnitts in $p\in γ$ den Punkt $p$ als stabillen (bzw. asymptotisch stabilen oder instabilen) Fixpunkt besitzt.
+Ein periodischer Orbit $γ$ einer autonomen gewöhnlichen Differentialgleichung ist genau dann stabil (bzw. asymptotisch stabil oder instabil), wenn irgendeine eine Poincaré-Abbildung eines transversalen Schnitts in $p\in γ$ den Punkt $p$ als stabilen (bzw. asymptotisch stabilen oder instabilen) Fixpunkt besitzt.
 \end{satz}
 
 \begin{bem}[Floquet-Multiplikatoren]\label{2.17}
-Es sei $\ov x(t) = \ov x (t + T)$ wieder eine periodische Lösung. Zur Stabilitätsanalyse können wir die zeitliche Entwicklung einer „kleinen“ Störung $y(t) = \ov x(t) + ξ(t)$ betrachten. Für diese Störung gilt
+Es sei $\ov x(t) = \ov x (t + T)$ wieder eine periodische Lösung. Zur Stabilitätsanalyse können wir die zeitliche Entwicklung einer „kleinen“ Störung $y(t) = \ov x(t) + ζ(t)$ betrachten. Für diese Störung gilt
 \begin{align*}
-    \dot {\ov x}(t) + \dot ξ(t) &= \dot y(t) = f\left( y(t)\right)\\
-    &= f(\ov x(t) + ξ(t) )\\
-    &\stackrel{\text{$ξ$  klein}}\approx f(\ov x(t)) + Df(\ov x(t)) ξ(t)
+    \dot {\ov x}(t) + \dot ζ(t) &= \dot y(t) = f\left( y(t)\right)\\
+    &= f(\ov x(t) + ζ(t) )\\
+    &\stackrel{\text{$ζ$  klein}}\approx f(\ov x(t)) + Df(\ov x(t)) ζ(t)
 \end{align*}
 Also betrachten wir die Variationsgleichung
 \begin{equation}
     \label{eqn:2.5}
-    \dot ξ(t) = Df(\ov x(t)) ξ(t)
+    \dot ζ(t) = Df(\ov x(t)) ζ(t)
 \end{equation}\footnote{Das ist wegen der Periodizität der Lösung eine Differentialgleichung der Form
     $\dot x = A(t) x$ mit $A(t)$ periodisch in $t$.}
 \end{bem}
 
 \begin{satz}[Floquet-Theorie, vgl. \cite{knoblochKappel}]\label{2.18}
 Jede Fundamentallösung $X(T)$ von \eqref{eqn:2.5} hat die Gestalt:
-$$X(t) = Z(t) e^{tR}, \quad Z(t) = Z(t+T),\quad X,Z \in ℝ^{n\times n}.$$
-Die Störung $ξ(t)$ gehen somit gegen 0, falls 
+$$X(t) = Z(t) e^{tR}, \quad Z(t) = Z(t+T),\quad X,Z,R \in ℝ^{n\times n}.$$
+Die Störung $ζ(t)$ gehen somit gegen 0, falls 
 $$e^{tR} v \to 0, t\to \infty, \quad ∀v\in ℝ^n.$$
-Die Eigenwerte von $e^{TR}$ sind die Floquet Multiplikatoren.
+Die Eigenwerte von $e^{TR}$ sind die Floquet Multiplikatoren.\footnote{Einer dieser Eigenwerte ist immer gleich 1, denn der Abstand eines Punktes zu einer Störung auf dem Orbit bleibt nach dem Umlauf gleich (vgl. Übung 2).}
 \end{satz}
 \begin{bem*}
 Beachte, dass für die Lösung $X(t)$ mit $X(0) = Z(0) = I$ folgt:

@@ -1,0 +1,160 @@
+\documentclass[main.tex]{subfiles}
+
+\begin{document}
+\setcounter{chapter}{2}
+
+\begin{bem*}
+Es gelten die folgenden Aussagen:
+\begin{enumerate}[label=(\roman*)]
+\item Ein Floquet-Multiplikator ist 1 (vgl. Übung 2).
+\item Es sei $φ^t(x)$ der Fluss und $p = \ov x(0)$. Dann gilt
+$$Dφ^T(p) = D_xφ^T(p) = e^{TR}.$$ 
+\end{enumerate}
+\end{bem*}
+
+\begin{proof}
+Für den Fluss gilt
+\begin{align}
+\dt φ^t(x) &= f\left( φ^t(x) \right) \nonumber \\
+\Rightarrow \dt Dφ^t(x) &= Df\left( φ^t (x) \right) Dφ^t(x) \label{eqn:2bem} \tag{$\star$}
+\end{align}
+Somit ist $Dφ^t(p)$ Fundamentallösung von \eqref{eqn:2.5} mit $Dφ^0(p) = I$, da $φ^0(x) = \mathrm{id}$. 
+Wegen der vorgehenden Bemerkung 
+\begin{equation}
+\label{eqn:2bem2}
+X(0)= Z(0) = I\Rightarrow X(T) = e^{TR} \tag{$\star \star$}
+\end{equation}
+folgt 
+$$Dφ^T(p) = e^{TR}.$$
+\end{proof}
+
+\begin{bem*}
+Mit diesem Ergebnis sin Stabilitätsuntersuchungen für periodische Lösungen (Orbits) über die numerische Lösung der Gleichung \eqref{eqn:2.5} mit der Anfangsbedingung $X(0) = I$ möglich.\\
+In anderen Worten: Integration von \eqref{eqn:2.5} für $t\in [0,T]$.
+\end{bem*}
+
+\begin{bem*}
+Es sei $φ^t(x)$ der Fluss und $p\in γ$ v. Dann gilt $Dφ^T(p) = e^{TR}$.
+\end{bem*}
+
+\begin{proof}
+Für $p\in γ$ ist $φ^t(p) = \overline x( t+ θ )$. 
+Es folgt 
+\begin{align*}
+\dt Dφ^t(p) &\stackrel{\eqref{eqn:2bem}}= Df \left(\ov x ( t+ θ)\right) \cdot Dφ^t (p).
+\end{align*}
+Daher besitzt $Dφ^t(p)$ die Form 
+$$Dφ^t(p) = Z(t+θ)e^{(t+θ)R},$$
+wobei $Z(t) e^{tR}$ Lösung der Variationsgleichung \eqref{eqn:2.5} ist, 
+denn $Dφ^{t-θ}(p)$ ist Lösung von \eqref{eqn:2.5}.
+Mit $Dφ^0(p) = I$ folgt $Z(θ)^{-1} = e^{θR}$.
+Damit gilt 
+$$Dφ^T(p) = Z(T+θ) e^{(T+θ)R} = Z(θ) e^{θR}e^{TR} = e^{TR}.$$
+\end{proof}
+
+Abschließend betrachten wir eine gewöhnliche Differentialgleichung mit zeitabhängiger rechter Seite, also zunächst nicht autonom:
+\begin{equation}\label{eqn:2.6}
+\dot x = f(x, t) , \qquad (x,t)\in ℝ^n \times ℝ,
+\end{equation}
+wobei $f$ periodisch in $t$ sei, d.h.
+\begin{align*}
+f(x,t) &= f(x, t+T) \qquad ∀(x,t).
+\end{align*}
+Wir können \eqref{eqn:2.6} autonomisieren und umschreiben in das System 
+\begin{equation}
+\label{eqn:2.7}
+\begin{aligned}
+\dot x &= f(x, θ), \\
+\dot θ &= 1
+,\end{aligned}
+\end{equation}
+wobei jetzt $(x,θ)\in ℝ^n \times S^1$ ist.
+Für die Gleichung \eqref{2.7} existiert ein globaler transversaler Schnitt
+$$Σ = \left \{ (x, θ)\in ℝ^n \times S^1: θ= θ_0 \right\},$$
+denn wegen $\dot θ = 1$ sind alle Lösungen transversal zu $Σ$ in $θ=θ_0$.
+Die Poincaré-Abbildung ist daher
+$$P\colon Σ\to Σ,\; P(x) = π\circ φ^t(x, θ_0),$$
+wobei $φ^t$ der Fluss von \eqref{eqn:2.7} ist und $π\colon ℝ^n\times S^1\to ℝ^n$ eine Projektion ist.
+Beachte, dass die Rückkehrzeit konstant gleich $T$ ist.
+Auch hier gilt
+\begin{enumerate}
+[label=(\alph*)]
+\item Ein Fixpunkt $p$ von $P$ entspricht einem periodischen Orbit der Periode $T$.
+\item Ein periodischer Punkt $p$ der Ordnung $k$ von $P$, d.h. 
+$$P^k(p) = p, P^j(p) \ne p, j\in \{1,…, k-1 \},$$
+entspricht einer subharmonischen Lösung der Periode $kT$ von \eqref{eqn:2.7}.
+\end{enumerate} 
+u
+\begin{figure}[h!]
+\begin{center}
+\begin{subfigure}[b]{0.4\textwidth}
+\resizebox{\linewidth}{!}{ 
+\input{imgs/2_4_end1.tex}}
+\caption{$p$ Fixpunkt von $P$}
+\end{subfigure}
+\begin{subfigure}[b]{0.4\textwidth}
+\resizebox{\linewidth}{!}{ 
+\input{imgs/2_4_end2.tex}}
+\caption{$P(p_0) = p_1$ und $P(p_1) = p_0$.}
+\end{subfigure}
+\end{center}
+\end{figure}
+
+\setcounter{section}{4}
+\section{Lineare Abbildungen}
+\label{section:2.5}
+Wir untersuchen das dynamische Verhalten von Systemen
+\begin{equation}
+\label{eqn:2.8}
+x_{k+1} = Ax_k, \quad k=0,1,2,…,
+\end{equation}
+wobei $A \in ℝ^{n\times n}$. 
+Zunächst benötigen wir dazu ein technisches Hilfsmittel:
+
+\setcounter{satz}{17}
+\begin{satz}\label{2.18}
+Es sei $ρ(A)$ der Spektralradius der Matrix $A$. Dann existiert zu jedem $δ>0$ eine Norm $\| • \|_δ$, so dass 
+$$\|A\|_δ < ρ(A) + δ.$$
+\end{satz}
+\begin{bem}\label{2.19}
+Da im $ℝ^n$ alle Normen äquivalent sind, gibt für jede Norm $\|•\|$ und jedes $ε>0$ ein $C_ε$, so dass für alle $v\in ℝ^n$ gilt
+\begin{equation}
+\label{2.19}
+\| A^n v \| \le C_ε \left( ρ(A) + ε \right)^n \| v \|,
+\end{equation}
+denn 
+$$\| A^n v\| \le C_ε\| A^n \|_ε \| v \| \le C_ε \left( ρ(A) + ε \right)^n \| v\|.$$
+\end{bem}
+
+\begin{korollar}\label{2.20}
+Falls sämtliche Eigenwerte der linearen Abbildung $A\colon ℝ^n\to ℝ^n$ vom Betrage her kleiner als 1 sind, so konvergieren die (positiven) Iterierten 
+$$y_k = A^k x \text{ zu $x\in ℝ^n$}$$
+exponentiell gegen den Ursprung 0. 
+D.h. es existieren ein $c>0$ und ein $λ\in [0,1)$, so dass für $k\ge 0$ gilt:
+$$\|y_k \|< cλ^k.$$
+\end{korollar}
+
+\begin{bsp}\label{2.21}
+$ $\\[-1em]
+\begin{enumerate}
+[label=(\alph*)]
+\item Es sei 
+$$A = \begin{pmatrix}
+λ & 0\\ 0& λ
+\end{pmatrix} \text{ mit $λ\in (0,1)$.}$$
+% skizze x-y-Achsen mit diskreten iterierten in qurtiel 1 & 4 die gegen 0 gehen exponentiell (kleinere löcken)
+\item es sei 
+$$A = \begin{pmatrix}
+λ & 0
+\\0 & μ
+\end{pmatrix}\text{ mit $λ,μ\in (0,1), μ< λ$.}$$
+Korollar \ref{2.20} impliziert, dass sämtliche Anfangswerte unter Iteration gegen die $0$ konvergieren. Man erhält folgendes Bild:
+
+\begin{center}
+\input{2_21_b.pgf}
+\end{center}
+% skizze / plot x-y Achse (ggf. mit Python plotten
+% caption: Solche Phasen-Bilder nennt man auch Knoten nach Englisch node
+\end{enumerate}
+\end{bsp}
+\end{document}
